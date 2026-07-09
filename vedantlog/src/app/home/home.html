@@ -1,1 +1,81 @@
-<p>home works!</p>
+<header class="navbar">
+  <div class="logo">
+    <i class="ti ti-truck" style="font-size:50px;"></i>
+    Vedant<span>Logistics</span>
+  </div>
+
+  <nav>
+    <a routerLink="/home" routerLinkActive="active">Home</a>
+    <a routerLink="/services" routerLinkActive="active">Services</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+  </nav>
+
+  <button class="btn-quote" routerLink="/contact">Get a Quote</button>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <span class="badge">TRUSTED LOGISTICS PARTNER</span>
+    <h1>Delivering <span class="highlight">On Time</span>, Every Time</h1>
+    <p>
+      Reliable road transport, warehousing, and supply chain solutions
+      built to keep your business moving forward.
+    </p>
+    <div class="hero-actions">
+      <button class="btn-primary" routerLink="/contact">Get a Quote <i class="fa-solid fa-arrow-right"></i></button>
+      <button class="btn-outline" routerLink="/services">Our Services</button>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <h3>500+</h3>
+        <p>Deliveries completed</p>
+      </div>
+      <div class="stat">
+        <h3>50+</h3>
+        <p>Cities covered</p>
+      </div>
+      <div class="stat">
+        <h3>99%</h3>
+        <p>On-time rate</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <!-- In home.component.html: -->
+<i class="ti ti-truck truck-icon"></i>
+    <div class="floating-card card-1">
+      <i class="fa-solid fa-route"></i>
+      <span>Live tracking</span>
+    </div>
+    <div class="floating-card card-2">
+      <i class="fa-solid fa-box"></i>
+      <span>Safe handling</span>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div class="feature-card">
+    <i class="ti ti-truck"></i>
+    <h3>Road Transport</h3>
+    <p>Fast and secure freight transport across the country with real-time tracking.</p>
+  </div>
+  <div class="feature-card">
+    <i class="ti ti-building-warehouse"></i>
+    <h3>Warehousing</h3>
+    <p>Modern storage facilities designed for efficient inventory management.</p>
+  </div>
+  <div class="feature-card">
+    <i class="ti ti-route"></i>
+    <h3>Route Optimization</h3>
+    <p>Smart routing technology that saves time, fuel, and delivery costs.</p>
+  </div>
+  <div class="feature-card">
+    <i class="ti ti-headset"></i>
+    <h3>24/7 Support</h3>
+    <p>Round-the-clock customer support to keep your shipments moving.</p>
+  </div>
+</section>
