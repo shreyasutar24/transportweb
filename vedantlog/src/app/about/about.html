@@ -1,1 +1,121 @@
-<p>about works!</p>
+<section class="about" #rootEl>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__content reveal">
+      <p class="eyebrow">About {{ companyName }}</p>
+      <h1 class="hero__title">
+        We plot the shortest path<br />between anywhere and anywhere else.
+      </h1>
+      <p class="hero__subtitle">
+        {{ companyName }} moves freight across ocean, air, rail and road —
+        replanning every route in real time so a shipment never sits still
+        longer than it has to.
+      </p>
+    </div>
+
+    <div class="route-diagram reveal">
+      <svg viewBox="0 0 800 220" class="route-svg" role="img"
+        aria-label="Animated shipping route from origin to hub to destination">
+        <path id="route-path" class="route-path" d="M40,160 C200,50 300,190 400,110 C500,30 600,190 760,70"
+          fill="none" />
+
+        <!-- traveling dot -->
+        <circle r="7" class="route-dot">
+          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto">
+            <mpath href="#route-path"></mpath>
+          </animateMotion>
+        </circle>
+
+        <!-- nodes -->
+        <g class="node node--origin">
+          <circle cx="40" cy="160" r="6" class="node__dot"></circle>
+          <circle cx="40" cy="160" r="6" class="node__pulse"></circle>
+          <text x="40" y="195" class="node__label">Origin</text>
+        </g>
+
+        <g class="node node--hub">
+          <circle cx="400" cy="110" r="6" class="node__dot"></circle>
+          <circle cx="400" cy="110" r="6" class="node__pulse"></circle>
+          <text x="400" y="145" class="node__label">Hub</text>
+        </g>
+
+        <g class="node node--destination">
+          <circle cx="760" cy="70" r="6" class="node__dot"></circle>
+          <circle cx="760" cy="70" r="6" class="node__pulse"></circle>
+          <text x="760" y="40" class="node__label" text-anchor="end">Destination</text>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="stats reveal">
+    <div class="stat-card" *ngFor="let stat of stats">
+      <p class="stat-value">0</p>
+      <p class="stat-suffix" *ngIf="stat.suffix">{{ stat.suffix }}</p>
+      <p class="stat-label">{{ stat.label }}</p>
+    </div>
+  </section>
+
+  <!-- STORY + TIMELINE -->
+  <section class="story">
+    <div class="story__text reveal">
+      <p class="eyebrow">Our story</p>
+      <h2>Built by people who were tired of guessing where their freight was.</h2>
+      <p>
+        {{ companyName }} started as a two-person operation frustrated by
+        opaque carriers and paper manifests. A decade later, the mission is
+        unchanged: give every shipper a clear, honest view of their cargo,
+        end to end.
+      </p>
+    </div>
+
+    <ol class="timeline">
+      <li class="timeline__item reveal" *ngFor="let milestone of milestones; let i = index">
+        <span class="timeline__year">{{ milestone.year }}</span>
+        <span class="timeline__marker"></span>
+        <div class="timeline__body">
+          <h3>{{ milestone.title }}</h3>
+          <p>{{ milestone.description }}</p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- PILLARS -->
+  <section class="pillars">
+    <p class="eyebrow reveal" style="text-align:center;">What we stand on</p>
+
+    <div class="pillars__grid">
+      <article class="pillar-card reveal" *ngFor="let pillar of pillars">
+        <div class="pillar-card__icon" [ngSwitch]="pillar.icon">
+          <svg *ngSwitchCase="'target'" viewBox="0 0 24 24" fill="none">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+            <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.6" />
+            <circle cx="12" cy="12" r="1.4" fill="currentColor" />
+          </svg>
+          <svg *ngSwitchCase="'eye'" viewBox="0 0 24 24" fill="none">
+            <path d="M2 12C4.5 7 8 4.5 12 4.5S19.5 7 22 12c-2.5 5-6 7.5-10 7.5S4.5 17 2 12Z" stroke="currentColor"
+              stroke-width="1.6" />
+            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6" />
+          </svg>
+          <svg *ngSwitchCase="'bolt'" viewBox="0 0 24 24" fill="none">
+            <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3>{{ pillar.title }}</h3>
+        <p>{{ pillar.description }}</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta reveal">
+    <h2>Ready to see your shipment move?</h2>
+    <p>Talk to our team about a route built around your freight, not our convenience.</p>
+    <button type="button" class="cta__button">Get in touch</button>
+  </section>
+
+</section>
