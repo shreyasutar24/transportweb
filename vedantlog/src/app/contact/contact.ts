@@ -39,7 +39,7 @@ type SubmitStatus = 'idle' | 'sending' | 'sent' | 'error';
 export class Contact implements AfterViewInit, OnDestroy {
   @ViewChild('rootEl') rootEl!: ElementRef<HTMLElement>;
 
-  companyName = 'Meridian Logistics';
+  companyName = 'Vedant Logistics';
 
   channels: ContactChannel[] = [
     {
@@ -51,8 +51,8 @@ export class Contact implements AfterViewInit, OnDestroy {
     {
       icon: 'mail',
       label: 'Email the team',
-      value: 'hello@meridianlogistics.com',
-      href: 'mailto:hello@meridianlogistics.com'
+      value: 'vendantlogistic@gmail.com',
+      href: 'mailto:vendantlogistic@gmail.com'
     },
     {
       icon: 'clock',
@@ -63,9 +63,9 @@ export class Contact implements AfterViewInit, OnDestroy {
   ];
 
   offices: OfficeLocation[] = [
-    { city: 'Rotterdam', region: 'Netherlands', address: 'Wilhelminakade 12', isHub: true },
-    { city: 'Newark', region: 'United States', address: '445 Port Way', isHub: false },
-    { city: 'Singapore', region: 'Singapore', address: '9 Tanjong Pagar Rd', isHub: false }
+    { city: 'Surat', region: 'Gujarat , India', address: 'Near main highway 12', isHub: true },
+    { city: 'Mumbai', region: ' Maharashtra ,India', address: '445 Port Way', isHub: false },
+    { city: 'Delhi', region: 'Delhi, India', address: '9 Delhi Market Road', isHub: false }
   ];
 
   form: FormGroup;

@@ -13,19 +13,19 @@ interface Stat {
   suffix: string;
   label: string;
 }
- 
+
 interface Milestone {
   year: string;
   title: string;
   description: string;
 }
- 
+
 interface Pillar {
   icon: 'target' | 'eye' | 'bolt';
   title: string;
   description: string;
 }
- 
+
 
 @Component({
   selector: 'app-about',
@@ -35,16 +35,16 @@ interface Pillar {
 })
 export class About implements AfterViewInit, OnDestroy {
   @ViewChild('rootEl') rootEl!: ElementRef<HTMLElement>;
- 
-  companyName = 'Meridian Logistics';
- 
+
+  companyName = 'Vedant Logistics';
+
   stats: Stat[] = [
     { value: 46, suffix: '', label: 'Countries served' },
     { value: 12, suffix: 'M+', label: 'Shipments moved / year' },
     { value: 3200, suffix: '+', label: 'Vehicles & vessels' },
     { value: 99, suffix: '.4%', label: 'On-time delivery' }
   ];
- 
+
   milestones: Milestone[] = [
     {
       year: '2014',
@@ -71,7 +71,7 @@ export class About implements AfterViewInit, OnDestroy {
         'Crossed 46 countries, connecting ocean, air, rail and road under one network.'
     }
   ];
- 
+
   pillars: Pillar[] = [
     {
       icon: 'target',
@@ -92,21 +92,21 @@ export class About implements AfterViewInit, OnDestroy {
         'Routes are re-optimized continuously against traffic, weather, and capacity.'
     }
   ];
- 
+
   private observer?: IntersectionObserver;
   private countersStarted = false;
- 
+
   ngAfterViewInit(): void {
     const root = this.rootEl.nativeElement;
     const revealEls = root.querySelectorAll('.reveal');
     const statsSection = root.querySelector('.stats');
- 
+
     this.observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           entry.target.classList.add('is-visible');
- 
+
           if (entry.target === statsSection && !this.countersStarted) {
             this.countersStarted = true;
             this.animateCounters();
@@ -115,35 +115,35 @@ export class About implements AfterViewInit, OnDestroy {
       },
       { threshold: 0.2 }
     );
- 
+
     revealEls.forEach((el) => this.observer!.observe(el));
   }
- 
+
   private animateCounters(): void {
     const root = this.rootEl.nativeElement;
     const counterEls = root.querySelectorAll<HTMLElement>('.stat-value');
     const duration = 1400;
- 
+
     counterEls.forEach((el, i) => {
       const target = this.stats[i]?.value ?? 0;
       const start = performance.now();
- 
+
       const step = (now: number) => {
         const progress = Math.min((now - start) / duration, 1);
         const eased = 1 - Math.pow(1 - progress, 3);
         el.textContent = Math.round(target * eased).toLocaleString();
- 
+
         if (progress < 1) {
           requestAnimationFrame(step);
         } else {
           el.textContent = target.toLocaleString();
         }
       };
- 
+
       requestAnimationFrame(step);
     });
   }
- 
+
   ngOnDestroy(): void {
     this.observer?.disconnect();
   }

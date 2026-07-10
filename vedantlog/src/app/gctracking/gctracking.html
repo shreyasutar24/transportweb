@@ -1,5 +1,5 @@
 <div class="gc-page">
-<br><br><br>
+  <br><br><br>
   <!-- HERO / SEARCH -->
   <section class="gc-hero">
     <div class="gc-hero__road" aria-hidden="true">
@@ -8,18 +8,12 @@
 
     <div class="gc-hero__content">
       <p class="gc-eyebrow">CONSIGNMENT TRACKING</p>
-      <h1 class="gc-title">Where's my <span class="gc-title--accent">GC</span>?</h1>
+      <h1 class="gc-title">Where's my <span class="gc-title--accent">LR</span>?</h1>
       <p class="gc-subtitle">Enter your GC (Goods Consignment) number to see live movement, checkpoints and ETA.</p>
 
       <form class="gc-search" (ngSubmit)="trackConsignment()">
-        <input
-          type="text"
-          class="gc-search__input"
-          placeholder="e.g. GC-4471029"
-          [(ngModel)]="searchGcNumber"
-          name="gcNumber"
-          autocomplete="off"
-        />
+        <input type="text" class="gc-search__input" placeholder="e.g. GC-4471029" [(ngModel)]="searchGcNumber"
+          name="gcNumber" autocomplete="off" />
         <button type="submit" class="gc-search__btn" [disabled]="isLoading">
           <span *ngIf="!isLoading">Track Shipment</span>
           <span *ngIf="isLoading" class="gc-search__spinner"></span>
@@ -88,13 +82,9 @@
       <h2 class="gc-timeline__title">Shipment Journey</h2>
 
       <ul class="gc-timeline__list">
-        <li
-          class="gc-timeline__item"
-          *ngFor="let step of steps; let i = index"
+        <li class="gc-timeline__item" *ngFor="let step of steps; let i = index"
           [class.gc-timeline__item--done]="step.status === 'done'"
-          [class.gc-timeline__item--active]="step.status === 'active'"
-          [style.animation-delay.ms]="i * 120"
-        >
+          [class.gc-timeline__item--active]="step.status === 'active'" [style.animation-delay.ms]="i * 120">
           <div class="gc-timeline__marker">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path [attr.d]="step.icon" stroke-linecap="round" stroke-linejoin="round" />
