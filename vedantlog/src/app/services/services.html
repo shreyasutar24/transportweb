@@ -1,1 +1,91 @@
-<p>services works!</p>
+<div class="sv-page">
+
+  <!-- HERO -->
+  <section class="sv-hero">
+    <div class="sv-hero__road" aria-hidden="true"></div>
+    <p class="sv-eyebrow">WHAT WE OFFER</p>
+    <h1 class="sv-title">Logistics built around <span class="sv-title--accent">your</span> freight</h1>
+    <p class="sv-subtitle">From single pallets to full truckloads, we move it reliably, and let you see it move.</p>
+  </section>
+
+  <!-- SERVICE GRID -->
+  <section class="sv-grid">
+    <div
+      class="sv-card"
+      *ngFor="let service of services; let i = index"
+      [class.sv-card--amber]="service.accent === 'amber'"
+      [class.sv-card--teal]="service.accent === 'teal'"
+      [style.animation-delay.ms]="i * 90"
+    >
+      <div class="sv-card__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <path [attr.d]="service.icon" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h3 class="sv-card__title">{{ service.title }}</h3>
+      <p class="sv-card__desc">{{ service.description }}</p>
+      <span class="sv-card__glow" aria-hidden="true"></span>
+    </div>
+  </section>
+
+  <!-- CUSTOMIZED SERVICE -->
+  <section class="sv-custom">
+    <div class="sv-custom__text">
+      <p class="sv-eyebrow sv-eyebrow--teal">BUILT AROUND YOU</p>
+      <h2 class="sv-section-title">Customized Service</h2>
+      <p class="sv-section-body">
+        No two supply chains look the same, so we don't force yours into one. Our team designs a shipping
+        plan around your product, your volumes and your delivery commitments, then adjusts it as your
+        business grows.
+      </p>
+
+      <ul class="sv-feature-list">
+        <li class="sv-feature" *ngFor="let feature of customFeatures">
+          <span class="sv-feature__check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </span>
+          <div>
+            <p class="sv-feature__title">{{ feature.title }}</p>
+            <p class="sv-feature__desc">{{ feature.description }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="sv-custom__visual" aria-hidden="true">
+      <div class="sv-route-card">
+        <div class="sv-route-card__row">
+          <span class="sv-route-dot sv-route-dot--start"></span>
+          <span class="sv-route-card__label">Your warehouse</span>
+        </div>
+        <div class="sv-route-card__line">
+          <span class="sv-route-card__truck">🚚</span>
+        </div>
+        <div class="sv-route-card__row">
+          <span class="sv-route-dot sv-route-dot--end"></span>
+          <span class="sv-route-card__label">Your customer</span>
+        </div>
+        <p class="sv-route-card__caption">A plan shaped to this exact route, not a generic template.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE EXCELLENCE -->
+  <section class="sv-excellence" #statsSection>
+    <p class="sv-eyebrow sv-eyebrow--amber-on-dark">WHY SHIPPERS STAY WITH US</p>
+    <h2 class="sv-section-title sv-section-title--light">Service Excellence</h2>
+    <p class="sv-section-body sv-section-body--light">
+      Excellence isn't a slogan here, it's a set of numbers we're held to every single day.
+    </p>
+
+    <div class="sv-stats">
+      <div class="sv-stat" *ngFor="let stat of excellenceStats">
+        <p class="sv-stat__value">{{ stat.current }}{{ stat.suffix }}</p>
+        <p class="sv-stat__label">{{ stat.label }}</p>
+      </div>
+    </div>
+  </section>
+
+</div>

@@ -1,167 +1,54 @@
-import {
-  Component,
-  AfterViewInit,
-  OnDestroy,
-  ElementRef,
-  ViewChild
-} from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  trigger,
-  transition,
-  style,
-  animate
-} from '@angular/animations';
+import { FormsModule } from '@angular/forms';
  
-interface ServiceModule {
-  id: string;
-  icon: 'route' | 'warehouse' | 'truck' | 'api' | 'manager' | 'shield';
+interface ServiceCard {
+  icon: string;
   title: string;
   description: string;
+  accent: 'amber' | 'teal' | 'coral';
 }
- 
-interface ProcessStep {
-  step: string;
-  title: string;
-  description: string;
-}
- 
-interface Industry {
-  icon: 'retail' | 'factory' | 'pharma' | 'commerce';
-  label: string;
-}
- 
 
 @Component({
   selector: 'app-customized-service',
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './customized-service.html',
   styleUrl: './customized-service.css',
-  animations: [
-    trigger('chipAnimation', [
-      transition(':enter', [
-        style({ opacity: 0, transform: 'translateY(8px) scale(0.9)' }),
-        animate('220ms ease-out', style({ opacity: 1, transform: 'translateY(0) scale(1)' }))
-      ]),
-      transition(':leave', [
-        animate('180ms ease-in', style({ opacity: 0, transform: 'translateY(-6px) scale(0.9)' }))
-      ])
-    ])
-  ]
+  
 
 })
-export class CustomizedService implements AfterViewInit, OnDestroy{
-   @ViewChild('rootEl') rootEl!: ElementRef<HTMLElement>;
- 
-  companyName = 'Meridian Logistics';
- 
-  modules: ServiceModule[] = [
+export class CustomizedService {
+   services: ServiceCard[] = [
     {
-      id: 'fleet',
-      icon: 'truck',
-      title: 'Dedicated fleet',
-      description: 'Vehicles reserved for your volume only — no shared capacity, no bumped loads.'
+      icon: 'M3 7h13v10H3zM16 10h4l3 3v4h-7z M6 20a2 2 0 100-4 2 2 0 000 4zM18 20a2 2 0 100-4 2 2 0 000 4z',
+      title: 'Freight Forwarding',
+      description: 'Air, ocean, and ground freight routed for cost or speed.',
+      accent: 'amber'
     },
     {
-      id: 'warehouse',
-      icon: 'warehouse',
-      title: 'Flexible warehousing',
-      description: 'Scale storage up or down monthly as your inventory cycles shift.'
+      icon: 'M3 21V10l9-6 9 6v11h-6v-7H9v7z',
+      title: 'Warehousing',
+      description: 'Flexible storage with inventory visibility down to the pallet.',
+      accent: 'teal'
     },
     {
-      id: 'routing',
-      icon: 'route',
-      title: 'Custom route planning',
-      description: 'Routes built around your delivery windows, not our default network.'
-    },
-    {
-      id: 'api',
-      icon: 'api',
-      title: 'Real-time API integration',
-      description: 'Plug shipment data straight into your own systems and dashboards.'
-    },
-    {
-      id: 'account',
-      icon: 'manager',
-      title: 'Dedicated account manager',
-      description: 'One person who knows your account, on call during your business hours.'
-    },
-    {
-      id: 'insurance',
-      icon: 'shield',
-      title: 'Custom cargo insurance',
-      description: 'Coverage sized to what you actually ship, not a flat-rate policy.'
+      icon: 'M13 2 3 14h7l-1 8 10-12h-7z',
+      title: 'Last-Mile Delivery',
+      description: 'Final-leg delivery tuned for cities or wide rural routes.',
+      accent: 'coral'
     }
   ];
  
-  selectedIds = new Set<string>(['fleet', 'routing']);
+  request = {
+    name: '',
+    email: '',
+    message: ''
+  };
  
-  processSteps: ProcessStep[] = [
-    {
-      step: '01',
-      title: 'Consultation',
-      description: 'We map your current shipping pattern, pain points, and growth plans.'
-    },
-    {
-      step: '02',
-      title: 'Custom plan',
-      description: 'You pick the modules that matter; we price only what you use.'
-    },
-    {
-      step: '03',
-      title: 'Integration',
-      description: 'Systems connect, fleet is assigned, and your account manager is introduced.'
-    },
-    {
-      step: '04',
-      title: 'Ongoing optimization',
-      description: 'Routes and capacity are re-tuned every quarter against your real data.'
-    }
-  ];
+  submitted = false;
  
-  industries: Industry[] = [
-    { icon: 'retail', label: 'Retail' },
-    { icon: 'factory', label: 'Manufacturing' },
-    { icon: 'pharma', label: 'Pharma & cold chain' },
-    { icon: 'commerce', label: 'E-commerce' }
-  ];
- 
-  private observer?: IntersectionObserver;
- 
-  get selectedModules(): ServiceModule[] {
-    return this.modules.filter((m) => this.selectedIds.has(m.id));
-  }
- 
-  isSelected(id: string): boolean {
-    return this.selectedIds.has(id);
-  }
- 
-  toggleModule(id: string): void {
-    if (this.selectedIds.has(id)) {
-      this.selectedIds.delete(id);
-    } else {
-      this.selectedIds.add(id);
-    }
-  }
- 
-  ngAfterViewInit(): void {
-    const revealEls = this.rootEl.nativeElement.querySelectorAll('.reveal');
- 
-    this.observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-          }
-        });
-      },
-      { threshold: 0.2 }
-    );
- 
-    revealEls.forEach((el) => this.observer!.observe(el));
-  }
- 
-  ngOnDestroy(): void {
-    this.observer?.disconnect();
+  onSubmit(): void {
+    if (!this.request.name || !this.request.email) { return; }
+    this.submitted = true;
   }
 }

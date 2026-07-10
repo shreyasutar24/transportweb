@@ -1,1 +1,122 @@
-<p>gctracking works!</p>
+<div class="gc-page">
+<br><br><br>
+  <!-- HERO / SEARCH -->
+  <section class="gc-hero">
+    <div class="gc-hero__road" aria-hidden="true">
+      <span class="gc-hero__truck">🚚</span>
+    </div>
+
+    <div class="gc-hero__content">
+      <p class="gc-eyebrow">CONSIGNMENT TRACKING</p>
+      <h1 class="gc-title">Where's my <span class="gc-title--accent">GC</span>?</h1>
+      <p class="gc-subtitle">Enter your GC (Goods Consignment) number to see live movement, checkpoints and ETA.</p>
+
+      <form class="gc-search" (ngSubmit)="trackConsignment()">
+        <input
+          type="text"
+          class="gc-search__input"
+          placeholder="e.g. GC-4471029"
+          [(ngModel)]="searchGcNumber"
+          name="gcNumber"
+          autocomplete="off"
+        />
+        <button type="submit" class="gc-search__btn" [disabled]="isLoading">
+          <span *ngIf="!isLoading">Track Shipment</span>
+          <span *ngIf="isLoading" class="gc-search__spinner"></span>
+        </button>
+      </form>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section class="gc-results" *ngIf="hasSearched && !notFound">
+
+    <div class="gc-card gc-summary">
+      <div class="gc-summary__row">
+        <div>
+          <p class="gc-summary__label">GC Number</p>
+          <p class="gc-summary__value gc-summary__value--mono">{{ consignment.gcNumber }}</p>
+        </div>
+        <span class="gc-badge" [class.gc-badge--transit]="activeStepIndex > -1">In Transit</span>
+      </div>
+
+      <div class="gc-route">
+        <div class="gc-route__point">
+          <span class="gc-route__dot gc-route__dot--origin"></span>
+          <p class="gc-route__city">{{ consignment.origin }}</p>
+          <p class="gc-route__tag">Origin</p>
+        </div>
+
+        <div class="gc-route__line">
+          <div class="gc-route__line-fill" [style.width.%]="progressPercent"></div>
+          <span class="gc-route__truck-icon" [style.left.%]="progressPercent">🚛</span>
+        </div>
+
+        <div class="gc-route__point">
+          <span class="gc-route__dot gc-route__dot--destination"></span>
+          <p class="gc-route__city">{{ consignment.destination }}</p>
+          <p class="gc-route__tag">Destination</p>
+        </div>
+      </div>
+
+      <div class="gc-summary__grid">
+        <div>
+          <p class="gc-summary__label">Weight</p>
+          <p class="gc-summary__value">{{ consignment.weight }}</p>
+        </div>
+        <div>
+          <p class="gc-summary__label">Booked On</p>
+          <p class="gc-summary__value">{{ consignment.bookedOn }}</p>
+        </div>
+        <div>
+          <p class="gc-summary__label">Expected Delivery</p>
+          <p class="gc-summary__value gc-summary__value--accent">{{ consignment.eta }}</p>
+        </div>
+        <div>
+          <p class="gc-summary__label">Transporter</p>
+          <p class="gc-summary__value">{{ consignment.transporter }}</p>
+        </div>
+        <div>
+          <p class="gc-summary__label">Vehicle No.</p>
+          <p class="gc-summary__value gc-summary__value--mono">{{ consignment.vehicleNo }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- TIMELINE -->
+    <div class="gc-card gc-timeline">
+      <h2 class="gc-timeline__title">Shipment Journey</h2>
+
+      <ul class="gc-timeline__list">
+        <li
+          class="gc-timeline__item"
+          *ngFor="let step of steps; let i = index"
+          [class.gc-timeline__item--done]="step.status === 'done'"
+          [class.gc-timeline__item--active]="step.status === 'active'"
+          [style.animation-delay.ms]="i * 120"
+        >
+          <div class="gc-timeline__marker">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path [attr.d]="step.icon" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span class="gc-timeline__pulse" *ngIf="step.status === 'active'"></span>
+          </div>
+
+          <div class="gc-timeline__body">
+            <p class="gc-timeline__label">{{ step.label }}</p>
+            <p class="gc-timeline__location">{{ step.location }}</p>
+            <p class="gc-timeline__time">{{ step.timestamp }}</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NOT FOUND -->
+  <section class="gc-empty" *ngIf="notFound">
+    <p class="gc-empty__title">We couldn't find that GC number</p>
+    <p class="gc-empty__text">Double-check the number on your consignment receipt and try again.</p>
+    <button class="gc-empty__btn" (click)="resetSearch()">Try Again</button>
+  </section>
+
+</div>

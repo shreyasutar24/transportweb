@@ -1,0 +1,101 @@
+<footer class="ft">
+
+ 
+
+  <div class="ft-main">
+
+    <!-- BRAND + NEWSLETTER -->
+    <div class="ft-col ft-brand">
+      <div class="ft-logo">
+        <span class="ft-logo__mark">GC</span>
+        <span class="ft-logo__text">Swift<span class="ft-logo__accent">Freight</span></span>
+      </div>
+      <p class="ft-tagline">Reliable freight movement across the country, tracked door to door.</p>
+
+      <form class="ft-newsletter" (ngSubmit)="subscribeNewsletter()">
+        <label class="ft-newsletter__label" for="ft-email">Get shipment tips and updates</label>
+        <div class="ft-newsletter__row">
+          <input
+            id="ft-email"
+            type="email"
+            class="ft-newsletter__input"
+            placeholder="you@example.com"
+            [(ngModel)]="newsletterEmail"
+            name="newsletterEmail"
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="ft-newsletter__btn" [disabled]="isSubscribing">
+            <span *ngIf="!isSubscribing && !subscribed">Subscribe</span>
+            <span *ngIf="isSubscribing" class="ft-newsletter__spinner"></span>
+            <span *ngIf="subscribed && !isSubscribing">Subscribed ✓</span>
+          </button>
+        </div>
+      </form>
+
+      <div class="ft-social">
+        <a
+          *ngFor="let social of socialLinks"
+          class="ft-social__link"
+          [href]="social.url"
+          [attr.aria-label]="social.name"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <svg viewBox="0 0 24 24" fill="currentColor"><path [attr.d]="social.icon" /></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- LINK COLUMNS -->
+    <div class="ft-col">
+      <h3 class="ft-col__title">Company</h3>
+      <ul class="ft-links">
+        <li *ngFor="let link of companyLinks">
+          <a [href]="link.url">{{ link.label }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="ft-col">
+      <h3 class="ft-col__title">Services</h3>
+      <ul class="ft-links">
+        <li *ngFor="let link of serviceLinks">
+          <a [href]="link.url">{{ link.label }}</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="ft-col">
+      <h3 class="ft-col__title">Support</h3>
+      <ul class="ft-links">
+        <li *ngFor="let link of supportLinks">
+          <a [href]="link.url">{{ link.label }}</a>
+        </li>
+      </ul>
+      <div class="ft-contact">
+        <p class="ft-contact__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.68 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0122 16.92z" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          +91 1800-233-9090
+        </p>
+        <p class="ft-contact__item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M22 6l-10 7L2 6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+          support&#64;swiftfreight.com
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="ft-bottom">
+    <p class="ft-bottom__copy">© {{ currentYear }} SwiftFreight Logistics. All rights reserved.</p>
+    <div class="ft-bottom__legal">
+      <a href="/terms">Terms</a>
+      <span class="ft-bottom__dot">•</span>
+      <a href="/privacy">Privacy</a>
+      <span class="ft-bottom__dot">•</span>
+      <a href="/sitemap">Sitemap</a>
+    </div>
+  </div>
+
+</footer>

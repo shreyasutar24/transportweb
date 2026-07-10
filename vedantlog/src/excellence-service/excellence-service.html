@@ -1,0 +1,18 @@
+<section class="ex-section">
+
+  <div class="ex-banner">
+    <h2 class="ex-banner__title">Excellence in Service</h2>
+  </div>
+
+  <div class="ex-list">
+    <div
+      class="ex-item"
+      *ngFor="let point of points"
+      [class.ex-item--open]="point.open"
+      (click)="toggle(point)">
+      <span class="ex-item__chevron">›</span>
+      <p class="ex-item__text">{{ point.text }}</p>
+    </div>
+  </div>
+
+</section>

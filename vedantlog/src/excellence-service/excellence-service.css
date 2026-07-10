@@ -1,0 +1,122 @@
+:host {
+  --cream: #f4f1ea;
+  --navy: #0b1e3d;
+  --navy-light: #16294d;
+  --amber: #f5a623;
+  --white: #ffffff;
+  --slate: #64748b;
+  --text-dark: #1e2a3a;
+
+  display: block;
+  background: var(--cream);
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  padding: 60px 8vw 80px;
+}
+
+/* ===== Banner ===== */
+.ex-banner {
+  background: var(--navy);
+  border-radius: 10px;
+  padding: 22px 24px;
+  margin-bottom: 28px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.ex-banner::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--amber);
+}
+
+.ex-banner__title {
+  margin: 0;
+  color: var(--white);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* ===== List ===== */
+.ex-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ex-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--white);
+  border-radius: 10px;
+  padding: 18px 22px;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  box-shadow: 0 1px 3px rgba(11, 30, 61, 0.06);
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ex-item:hover {
+  border-left-color: var(--amber);
+  transform: translateX(4px);
+  box-shadow: 0 4px 14px rgba(11, 30, 61, 0.1);
+}
+
+.ex-item--open {
+  border-left-color: var(--navy);
+  background: #fbfaf7;
+}
+
+.ex-item__chevron {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--amber);
+  color: var(--navy);
+  font-weight: 800;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.ex-item--open .ex-item__chevron {
+  transform: rotate(90deg);
+  background: var(--navy);
+  color: var(--amber);
+}
+
+.ex-item__text {
+  margin: 0;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.ex-item--open .ex-item__text {
+  color: var(--navy);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 640px) {
+  :host {
+    padding: 40px 6vw 60px;
+  }
+
+  .ex-banner__title {
+    font-size: 1.1rem;
+  }
+
+  .ex-item {
+    padding: 14px 16px;
+  }
+}
