@@ -1,0 +1,129 @@
+<section class="contact" #rootEl>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero__glow"></div>
+    <div class="hero__content reveal">
+      <p class="eyebrow">Contact {{ companyName }}</p>
+      <h1 class="hero__title">Tell us where it needs to go.</h1>
+      <p class="hero__subtitle">
+        Whether it's a single pallet or a standing route, dispatch answers
+        in under two hours. No ticket queues, no hold music.
+      </p>
+    </div>
+  </section>
+
+  <!-- CHANNELS -->
+  <section class="channels">
+    <a
+      *ngFor="let channel of channels"
+      class="channel-card reveal"
+      [class.channel-card--static]="!channel.href"
+      [href]="channel.href || null"
+    >
+      <div class="channel-card__icon" [ngSwitch]="channel.icon">
+        <svg *ngSwitchCase="'phone'" viewBox="0 0 24 24" fill="none">
+          <path d="M5 4h3.5l1.5 4-2 1.5a12 12 0 0 0 6.5 6.5l1.5-2 4 1.5V19a2 2 0 0 1-2 2C10.5 21 3 13.5 3 6a2 2 0 0 1 2-2Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" />
+        </svg>
+        <svg *ngSwitchCase="'mail'" viewBox="0 0 24 24" fill="none">
+          <rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.6" />
+          <path d="m4 7 8 6 8-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <svg *ngSwitchCase="'clock'" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+          <path d="M12 7v5l3.5 2" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+      </div>
+      <p class="channel-card__label">{{ channel.label }}</p>
+      <p class="channel-card__value">{{ channel.value }}</p>
+    </a>
+  </section>
+
+  <!-- FORM + OFFICES -->
+  <section class="body-grid">
+
+    <form class="form reveal" [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <p class="eyebrow">Send a message</p>
+      <h2 class="form__title">Get a route quote</h2>
+
+      <div class="field">
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          placeholder=" "
+          [class.field--invalid]="fieldInvalid('name')"
+        />
+        <label for="name">Full name</label>
+        <span class="field__error" *ngIf="fieldInvalid('name')">Enter your name</span>
+      </div>
+
+      <div class="field">
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          placeholder=" "
+          [class.field--invalid]="fieldInvalid('email')"
+        />
+        <label for="email">Work email</label>
+        <span class="field__error" *ngIf="fieldInvalid('email')">Enter a valid email</span>
+      </div>
+
+      <div class="field">
+        <input id="company" type="text" formControlName="company" placeholder=" " />
+        <label for="company">Company (optional)</label>
+      </div>
+
+      <div class="field">
+        <textarea
+          id="message"
+          rows="4"
+          formControlName="message"
+          placeholder=" "
+          [class.field--invalid]="fieldInvalid('message')"
+        ></textarea>
+        <label for="message">What are you shipping?</label>
+        <span class="field__error" *ngIf="fieldInvalid('message')">Tell us a bit more (10+ characters)</span>
+      </div>
+
+      <button
+        type="submit"
+        class="submit-btn"
+        [class.submit-btn--sending]="status === 'sending'"
+        [class.submit-btn--sent]="status === 'sent'"
+        [disabled]="status === 'sending'"
+      >
+        <span *ngIf="status === 'idle' || status === 'error'">Send message</span>
+        <span *ngIf="status === 'sending'" class="submit-btn__spinner" aria-hidden="true"></span>
+        <span *ngIf="status === 'sending'">Sending</span>
+        <svg *ngIf="status === 'sent'" class="submit-btn__check" viewBox="0 0 24 24" fill="none">
+          <path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span *ngIf="status === 'sent'">Message sent</span>
+      </button>
+    </form>
+
+    <aside class="offices reveal">
+      <p class="eyebrow">Our hubs</p>
+      <h2 class="offices__title">Find us on the map</h2>
+
+      <ul class="office-list">
+        <li class="office-item" *ngFor="let office of offices">
+          <span class="office-item__pin">
+            <span class="office-item__pulse" *ngIf="office.isHub"></span>
+          </span>
+          <div>
+            <p class="office-item__city">
+              {{ office.city }}
+              <span class="office-item__badge" *ngIf="office.isHub">HQ</span>
+            </p>
+            <p class="office-item__address">{{ office.address }}, {{ office.region }}</p>
+          </div>
+        </li>
+      </ul>
+    </aside>
+
+  </section>
+
+</section>
