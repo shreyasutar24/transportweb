@@ -1,1 +1,109 @@
-<p>customized-service works!</p>
+
+<section class="cservice" #rootEl>
+
+  <!-- BREADCRUMB + HERO -->
+  <section class="hero">
+    <div class="hero__glow"></div>
+    <nav class="breadcrumb reveal" aria-label="Breadcrumb">
+      <a href="/services">Services</a>
+      <span class="breadcrumb__sep">/</span>
+      <span aria-current="page">Customized solutions</span>
+    </nav>
+
+    <div class="hero__content reveal">
+      <p class="eyebrow">Customized service</p>
+      <h1 class="hero__title">Build a logistics plan around your business, not ours.</h1>
+      <p class="hero__subtitle">
+        Pick only the modules you need below — {{ companyName }} prices and
+        assembles the rest around your real shipping pattern.
+      </p>
+    </div>
+  </section>
+
+  <!-- MODULE PICKER + SUMMARY -->
+  <section class="builder">
+    <div class="builder__modules">
+      <p class="eyebrow reveal">Choose your modules</p>
+
+      <div class="module-grid">
+        <button
+          type="button"
+          class="module-card reveal"
+          *ngFor="let module of modules"
+          [class.module-card--selected]="isSelected(module.id)"
+          (click)="toggleModule(module.id)"
+          [attr.aria-pressed]="isSelected(module.id)"
+        >
+          <div class="module-card__top">
+            <div class="module-card__icon" [ngSwitch]="module.icon">
+              <svg *ngSwitchCase="'truck'" viewBox="0 0 24 24" fill="none"><path d="M3 7h11v9H3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="M14 10h4l3 3v3h-7z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><circle cx="7" cy="18" r="1.8" stroke="currentColor" stroke-width="1.6" /><circle cx="17.5" cy="18" r="1.8" stroke="currentColor" stroke-width="1.6" /></svg>
+              <svg *ngSwitchCase="'warehouse'" viewBox="0 0 24 24" fill="none"><path d="M3 10 12 4l9 6v9H3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="M9 19v-6h6v6" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
+              <svg *ngSwitchCase="'route'" viewBox="0 0 24 24" fill="none"><circle cx="6" cy="6" r="2.4" stroke="currentColor" stroke-width="1.6" /><circle cx="18" cy="18" r="2.4" stroke="currentColor" stroke-width="1.6" /><path d="M8 7c2 3 6 3 8 6s0 3.5 2 5" stroke="currentColor" stroke-width="1.6" stroke-dasharray="2 3" /></svg>
+              <svg *ngSwitchCase="'api'" viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="7" height="7" rx="1.4" stroke="currentColor" stroke-width="1.6" /><rect x="13" y="13" width="7" height="7" rx="1.4" stroke="currentColor" stroke-width="1.6" /><path d="M11 7.5h6a1.5 1.5 0 0 1 1.5 1.5v4M7.5 11v6A1.5 1.5 0 0 0 9 18.5h4" stroke="currentColor" stroke-width="1.6" /></svg>
+              <svg *ngSwitchCase="'manager'" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="8" r="3.4" stroke="currentColor" stroke-width="1.6" /><path d="M5 19c1-3.5 4-5 7-5s6 1.5 7 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" /></svg>
+              <svg *ngSwitchCase="'shield'" viewBox="0 0 24 24" fill="none"><path d="M12 3.5 19 6v6c0 4.5-3 7.5-7 8.5-4-1-7-4-7-8.5V6z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </div>
+            <span class="module-card__check" *ngIf="isSelected(module.id)">
+              <svg viewBox="0 0 24 24" fill="none"><path d="m5 13 4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </span>
+          </div>
+          <h3 class="module-card__title">{{ module.title }}</h3>
+          <p class="module-card__desc">{{ module.description }}</p>
+        </button>
+      </div>
+    </div>
+
+    <aside class="builder__summary reveal">
+      <p class="eyebrow">Your plan</p>
+      <h2 class="summary__title">{{ selectedModules.length }} module<span *ngIf="selectedModules.length !== 1">s</span> selected</h2>
+
+      <ul class="summary__chips">
+        <li class="summary__chip" *ngFor="let module of selectedModules" @chipAnimation>
+          {{ module.title }}
+        </li>
+        <li class="summary__empty" *ngIf="selectedModules.length === 0">
+          Select modules on the left to start building your plan.
+        </li>
+      </ul>
+
+      <button type="button" class="summary__cta">Request this plan</button>
+    </aside>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="process">
+    <p class="eyebrow reveal" style="text-align:center;">How it comes together</p>
+
+    <div class="process__grid">
+      <div class="process-step reveal" *ngFor="let step of processSteps">
+        <span class="process-step__number">{{ step.step }}</span>
+        <h3>{{ step.title }}</h3>
+        <p>{{ step.description }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- INDUSTRIES -->
+  <section class="industries reveal">
+    <p class="eyebrow" style="text-align:center;">Built for</p>
+    <div class="industries__row">
+      <div class="industry-pill" *ngFor="let industry of industries">
+        <div class="industry-pill__icon" [ngSwitch]="industry.icon">
+          <svg *ngSwitchCase="'retail'" viewBox="0 0 24 24" fill="none"><path d="M4 8h16l-1.5 11h-13z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="M8 8V6a4 4 0 0 1 8 0v2" stroke="currentColor" stroke-width="1.6" /></svg>
+          <svg *ngSwitchCase="'factory'" viewBox="0 0 24 24" fill="none"><path d="M3 20V11l5 3v-3l5 3V9l5 3v8z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /></svg>
+          <svg *ngSwitchCase="'pharma'" viewBox="0 0 24 24" fill="none"><rect x="8" y="3" width="8" height="18" rx="4" stroke="currentColor" stroke-width="1.6" /><path d="M8 12h8" stroke="currentColor" stroke-width="1.6" /></svg>
+          <svg *ngSwitchCase="'commerce'" viewBox="0 0 24 24" fill="none"><path d="M4 7h16l-1.5 12h-13z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" /><path d="M9 11V7a3 3 0 0 1 6 0v4" stroke="currentColor" stroke-width="1.6" /></svg>
+        </div>
+        <span>{{ industry.label }}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta reveal">
+    <h2>Not sure which modules you need?</h2>
+    <p>Talk to us for 15 minutes and we'll suggest a starting plan.</p>
+    <button type="button" class="cta__button">Book a consultation</button>
+  </section>
+
+</section>
