@@ -73,6 +73,103 @@ nav a:hover::after,
 nav a.active::after {
   width: 100%;
 }
+/* ===== Services Dropdown ===== */
+.nav-item {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger {
+  display: flex !important;
+  align-items: center;
+  gap: 6px;
+}
+
+.dropdown-arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+}
+
+.nav-item:hover .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(11, 37, 69, 0.15);
+  min-width: 220px;
+  padding: 10px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease;
+  z-index: 1001;
+}
+
+/* invisible bridge so hover doesn't break between link and menu */
+.dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 0;
+  width: 100%;
+  height: 18px;
+}
+
+.nav-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-menu a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #34405a;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu a::after {
+  display: none;
+}
+
+.dropdown-menu a i {
+  color: #ff6b35;
+  font-size: 15px;
+  width: 18px;
+  text-align: center;
+}
+
+.dropdown-menu a:hover {
+  background: #f5f7fa;
+  color: #ff6b35;
+}
+
+@media (max-width: 640px) {
+  .dropdown-menu {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    min-width: 100%;
+    opacity: 1;
+    visibility: visible;
+    display: none;
+    margin-top: 10px;
+  }
+  .nav-item:hover .dropdown-menu {
+    display: block;
+    transform: none;
+  }
+}
 
 .btn-quote {
   padding: 11px 24px;
@@ -320,3 +417,5 @@ nav a.active::after {
   75% { transform: translateX(0px) translateY(-4px); }
   100% { transform: translateX(-10px) translateY(0); }
 }
+
+
